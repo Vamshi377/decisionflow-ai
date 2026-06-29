@@ -30,12 +30,7 @@ class Settings(BaseSettings):
         return bool(value)
     
     # CORS Origins
-    BACKEND_CORS_ORIGINS: List[str] = [
-        "http://localhost:5173",  # Vite default dev port
-        "http://127.0.0.1:5173",
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-    ]
+    BACKEND_CORS_ORIGINS: List[str] = ["*"]
     
     # Database Settings
     DATABASE_URL: str = Field(
