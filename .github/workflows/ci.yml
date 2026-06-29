@@ -1,0 +1,43 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - name: Install dependencies
+      run: |
+        cd frontend
+        npm install
+    - name: Build Frontend
+      run: |
+        cd frontend
+        npm run build
+
+  test-backend:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Install dependencies
+      run: |
+        cd backend
+        pip install -r requirements.txt
+    - name: Lint check
+      run: |
+        cd backend
+        # Check syntax errors
+        python -m py_compile app/main.py
